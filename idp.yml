@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+    mysql:
+      build: ./database
+      hostname: mysqldb
+      restart: always
+      tty: true
+      ports:
+        - "60000:3306"
+    www:
+      image: php:7.4-apache
+      hostname: webpage
+      depends_on:
+        - mysql
+      volumes:
+        - ./webpage:/var/www/html
+      ports:
+        - "8080:80"
+
